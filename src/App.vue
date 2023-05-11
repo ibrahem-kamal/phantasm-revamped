@@ -22,7 +22,7 @@ export default {
       component: 'app-connect',
       tabs: Object.freeze([
         { component: 'app-connect', title: 'Connection' },
-        { component: 'app-radar', title: 'Radar' },
+        // { component: 'app-radar', title: 'Radar' },
         { component: 'app-debugger', title: 'Debugger' },
         { component: null, title: 'Updates' },
         { component: null, title: 'Admin' },
@@ -30,7 +30,9 @@ export default {
     };
   },
   components:{
-    'app-connect':() => import('./components/connect')
+    'app-connect':() => import('./components/connect'),
+    'app-radar':() => import('./components/radar/radar'),
+    'app-debugger':() => import('./components/debugger/debugger'),
   },
   methods: {
     show: function(component) {

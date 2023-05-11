@@ -122,8 +122,7 @@ export default class WebSocketStore {
         this.socket.send("net.state!");
     }
 
-    detachGame(game) {
-        console.log(game)
+    detachGame() {
         this.game = null;
     }
 

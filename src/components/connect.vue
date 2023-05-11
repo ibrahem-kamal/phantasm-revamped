@@ -9,8 +9,6 @@
       <input type="text" v-model="socket.username" :readonly="connecting" :disabled="connecting">
       <label>Secret:</label>
       <input type="password" v-model="socket.secret" :readonly="connecting" :disabled="connecting">
-      <label>Share:</label>
-      <input type="text" :value="shareURL" readonly="readonly">
       <label></label>
       <input v-if="!connecting" type="submit" value="Connect">
       <input v-if="connecting" type="submit" value="Disconnect">
@@ -31,14 +29,7 @@ export default {
   computed: {
     connecting: function () {
       return this.socket.socket != null;
-    },
-    shareURL: function () {
-      let share = window.location.href.split("#")[0] +
-        "#address=" + encodeURIComponent(this.socket.address) +
-        "&username=" + encodeURIComponent(this.socket.username) +
-        "&secret=" + encodeURIComponent(this.socket.secret);
-      return share;
-    },
+    }
   },
   methods: {
     submit: function () {
