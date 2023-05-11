@@ -1,41 +1,56 @@
 <template>
-  <div id="app">
-    <header>
-      <h1>Phantasm UI</h1>
-      <nav v-if="socket.connected()">
-        <button v-for="(tab,index) in tabs" :key="index" @click="show(tab.component)" :class="{ active: component == tab.component }">{{ tab.title }}</button>
-      </nav>
-    </header>
-    <keep-alive>
-      <component :is="component" :socket.sync="socket" style="overflow: auto"></component>
-    </keep-alive>
+  <div class="bg-white p-6 lg:px-8 min-h-screen">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+      <div class="sm:hidden">
+        <label for="tabs" class="sr-only">Phantasm UI</label>
+        <select v-if="socket.connected()" id="tabs" name="tabs"
+                class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+          <option v-for="(tab,index) in tabs" :key="index" @onChange="show(tab.component)">{{ tab.title }}</option>
+        </select>
+      </div>
+      <div class="hidden sm:block">
+        <h1 class="font-bold text-center mb-6 text-lg text-indigo-700">Phantasm UI</h1>
+        <nav class="flex space-x-4 justify-center" aria-label="Tabs" v-if="socket.connected()">
+          <a href="#" v-for="(tab,index) in tabs" :key="index" @click="show(tab.component)"
+             class="text-gray-500 hover:text-gray-700 rounded-md px-3 py-2 text-sm font-medium"
+             :class="[component === tab.component ?  'bg-indigo-100 text-indigo-700' :'text-gray-500 hover:text-gray-700'  ]"
+          >{{ tab.title }}</a>
+        </nav>
+      </div>
+      <keep-alive>
+        <div class="flex flex-row p-3 m-3">
+          <component :is="component" :socket.sync="socket" style="overflow: auto"></component>
+        </div>
+      </keep-alive>
+    </div>
   </div>
 </template>
 
 <script>
 import Socket from "@/components/mixins/Socket";
+
 export default {
   name: 'App',
   mixins: [Socket],
-  data: function() {
+  data: function () {
     return {
       component: 'app-connect',
       tabs: Object.freeze([
-        { component: 'app-connect', title: 'Connection' },
+        {component: 'app-connect', title: 'Connection'},
         // { component: 'app-radar', title: 'Radar' },
-        { component: 'app-debugger', title: 'Debugger' },
-        { component: null, title: 'Updates' },
-        { component: null, title: 'Admin' },
+        {component: 'app-debugger', title: 'Debugger'},
+        {component: null, title: 'Updates'},
+        {component: null, title: 'Admin'},
       ]),
     };
   },
-  components:{
-    'app-connect':() => import('./components/connect'),
-    'app-radar':() => import('./components/radar/radar'),
-    'app-debugger':() => import('./components/debugger/debugger'),
+  components: {
+    'app-connect': () => import('./components/connect'),
+    'app-radar': () => import('./components/radar/radar'),
+    'app-debugger': () => import('./components/debugger/debugger'),
   },
   methods: {
-    show: function(component) {
+    show: function (component) {
       if (component) {
         this.component = component;
       }
@@ -43,12 +58,11 @@ export default {
   },
   watch: {
     socket: {
-      role: function(role) {
+      role: function (role) {
         // Switch to radar when connecting
         if (role) {
           this.component = 'app-radar';
-        }
-        else {
+        } else {
           this.component = 'app-connect';
         }
       },
@@ -56,51 +70,4 @@ export default {
   },
 }
 </script>
-<style>
-html, body, #app-container, .app-main {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-h1, h2, h3, h4, h5, h6 {
-  padding: 0;
-  margin: 0;
-}
-.app-main {
-  display: grid;
-  grid-template: 3rem auto / auto;
-}
-
-.app-main > header {
-  display: flex;
-  flex-direction: row;
-
-  border-bottom: 1px solid #888;
-}
-.app-main > header > h1 {
-  line-height: 3rem;
-  width: 15rem;
-}
-.app-main > header > nav {
-  display: flex;
-  flex-direction: row;
-
-  height: 3rem;
-}
-.app-main > header > nav > button {
-  height: 3rem;
-  margin: 0 0.1rem;
-  cursor: pointer;
-
-  border: 1px solid #888;
-  background-color: white;
-}
-.app-main > header > nav > button.active {
-  border-bottom: none;
-}
-.app-main > div {
-  overflow: auto;
-}
-</style>
 
