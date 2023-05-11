@@ -50,7 +50,7 @@
 </template>
 <script>
 "use strict"
-import {argv} from "./utils"
+import {argv} from "@/helpers/utils"
 import Socket from "@/components/mixins/Socket";
 
 export default {

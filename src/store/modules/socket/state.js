@@ -1,4 +1,4 @@
-import WebSocketStore from "@/components/socket";
+import WebSocketStore from "@/classes/Socket";
 
 export default {
     socket: new WebSocketStore(),

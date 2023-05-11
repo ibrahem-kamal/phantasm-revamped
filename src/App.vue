@@ -46,8 +46,8 @@ export default {
   },
   components: {
     'app-connect': () => import('./components/connect'),
-    'app-radar': () => import('./components/radar/radar'),
-    'app-debugger': () => import('./components/debugger/debugger'),
+    'app-radar': () => import('./components/radar'),
+    'app-debugger': () => import('./components/debugger'),
   },
   methods: {
     show: function (component) {

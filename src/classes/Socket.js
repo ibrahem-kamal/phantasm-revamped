@@ -1,5 +1,4 @@
 import Vue from 'vue';
-
 export default class WebSocketStore {
     constructor() {
         this.address = 'ws://localhost:30145/';
@@ -11,7 +10,7 @@ export default class WebSocketStore {
 
         this.game = null;
         this.state = null;
-        this.role = 'admin';
+        this.role = null;
         this.paused = false;
         this.debugText = {};
 

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import CameraStore from "@/components/radar/camera";
+import CameraStore from "@/classes/Camera";
 "use strict"
 
 export default {
